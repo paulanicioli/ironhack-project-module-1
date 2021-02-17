@@ -9,6 +9,22 @@
   </head>
   <body>
     <h1>Welcome to Blackjack!</h1>
+    <button class="start-game display">START GAME</button>
+    <section id="player">
+      <h3 class="hide">SUM: <span>0</span></h3>
+      <img class="card hide" src="images/2C.png" alt="Card Player" />
+      <img class="card hide" src="images/2C.png" alt="Card Player" />
+    </section>
+    <section id="next-move">
+      <button id="hit" class="hide">HIT</button>
+      <button id="stand" class="hide">STAND</button>
+    </section>
+    <section id="pc">
+      <h3 class="hide">SUM: <span>0</span></h3>
+      <img class="card hide" src="images/2C.png" alt="Card Computer" />
+      <img class="card hide" src="images/2C.png" alt="Card Computer" />
+    </section>
     <script src="src/index.js"></script>
+    <script src="src/cards.js"></script>
   </body>
 </html>

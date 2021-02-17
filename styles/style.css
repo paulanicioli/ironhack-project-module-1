@@ -1,3 +1,27 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.start-game {
+  background-color: teal;
+}
+
+.display {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.card {
+  width: 200px;
+}
+
+#player {
+  display: flex;
+}
+
+#pc {
+  display: flex;
+}
