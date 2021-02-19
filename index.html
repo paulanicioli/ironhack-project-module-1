@@ -8,22 +8,51 @@
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
-    <h1>Welcome to Blackjack!</h1>
+    <nav class="nav-bar">
+      <img src="" alt="Blackjack logo">
+      <ul>
+        <li><a href="#">About the game</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Give feedback</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h1>Welcome to Blackjack!</h1>
+    <form><label for="playerName">Player name:</label><br>
+      <input type="text" id="playerName" name="playerName" placeholder="Type your name here"><br>
+      <label for="initialBet">How many chips would you like to purchase?</label><br>
+      <input type="number" id="initialBet" name="initialBet" placeholder="Choose a $ amount"></form>
     <button class="start-game display">START GAME</button>
-    <section id="player">
-      <h3 class="hide">SUM: <span>0</span></h3>
-      <img class="card hide" src="images/2C.png" alt="Card Player" />
-      <img class="card hide" src="images/2C.png" alt="Card Player" />
-    </section>
-    <section id="next-move">
-      <button id="hit" class="hide">HIT</button>
-      <button id="stand" class="hide">STAND</button>
-    </section>
-    <section id="pc">
-      <h3 class="hide">SUM: <span>0</span></h3>
-      <img class="card hide" src="images/2C.png" alt="Card Computer" />
-      <img class="card hide" src="images/2C.png" alt="Card Computer" />
-    </section>
+  </main>
+    <div id="game-content">
+      <section id="player">
+        <h2 class="hide">Player: <span></span></h3>
+        <h2 class="hide">Balance: $<span>0</span></h2>
+        <h3 class="hide">Sum: <span>0</span></h3>
+        <div class="hide">
+          <div><img class="card" src="images/2C.png" alt="Card Player" /></div>
+          <div><img class="card" src="images/2C.png" alt="Card Player" /></div>
+        </div>
+      </section>
+      <section id="next-move">
+        <button id="hit" class="hide"><div class="target btn-background"></div>HIT</button>
+        <button id="stand" class="hide">STAND</button>
+      </section>
+      <section id="pc">
+        <h2 class="hide">Dealer <span></span></h3>
+        <h3 class="hide">Sum: <span>0</span></h3>
+        <div class="hide">
+          <div>
+            <img class="card" src="images/2C.png" alt="Card Computer" />
+          </div>
+          <div>
+            <img class="card" src="images/2C.png" alt="Card Computer" />
+          </div>
+        </div>
+      </section>
+    </div>
+<div id="loss">You lost.........</div>
+<div id="win">You won.........</div>
     <script src="src/index.js"></script>
     <script src="src/cards.js"></script>
   </body>

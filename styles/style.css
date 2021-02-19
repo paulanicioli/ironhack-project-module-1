@@ -1,5 +1,75 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 600px;
+}
+
+main {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+main h1 {
+  font-size: 2.5rem;
+  color: teal;
+}
+
+.nav-bar {
+  background-color: teal;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10%;
+}
+
+.nav-bar ul {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.7rem;
+}
+
+input {
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  font-weight: lighter;
+  font-style: italic;
+  padding: 10px 0;
+  width: 300px;
+  margin: 15px 0;
+}
+
+.start-game {
+  border: none;
+  border-radius: 12px;
+  background-color: teal;
+  color: white;
+  font-weight: bold;
+  width: 300px;
+  font-size: 2rem;
+  padding: 20px 0;
+}
+
+#game-content {
+  display: flex;
+  justify-content: space-between;
 }
 
 .start-game {
@@ -18,10 +88,88 @@
   width: 200px;
 }
 
-#player {
-  display: flex;
+.card-container {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  max-width: 900px;
 }
 
-#pc {
-  display: flex;
+.card-container div {
+  display: table-cell;
+  width: 100px;
+}
+
+.card-container img {
+  display: block;
+}
+
+#hit {
+  background-color: teal;
+  border: none;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 80px;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+#stand {
+  background-color: rebeccapurple;
+  border: none;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 80px;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+#loss {
+  visibility: hidden;
+  min-width: 350px;
+  margin-left: -125px;
+  background-color: rgba(102, 51, 153, 0.75);
+  color: #fff;
+  text-align: center;
+  border-radius: 12px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 50%;
+}
+
+#loss.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#win {
+  visibility: hidden;
+  min-width: 350px;
+  margin-left: -125px;
+  background-color: rgba(0, 128, 128, 0.75);
+  color: #fff;
+  text-align: center;
+  border-radius: 12px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 50%;
+}
+
+#win.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
