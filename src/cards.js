@@ -1,6 +1,6 @@
 // Defining all Objects belonging to a full deck of cards
 
-const cardsDeck = [
+const fullDeck = [
   {
     name: "Ace of Spades",
     value: 1,
@@ -315,9 +315,18 @@ const cardsDeck = [
   },
 ];
 
+let cardsDeck = [...fullDeck];
+
 function grabRandomCard(array) {
   const index = Math.floor(Math.random() * array.length);
   const card = array[index];
   array.splice(index, 1);
   return card;
+}
+
+function reshuffleDeck() {
+  if (cardsDeck.length === 0) {
+    cardsDeck = [...fullDeck];
+    console.log("Deck has been reshuffled!");
+  }
 }

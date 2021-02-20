@@ -6,11 +6,11 @@
 }
 
 body {
-  height: 600px;
+  height: 650px;
 }
 
 main {
-  height: 500px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -20,6 +20,27 @@ main {
 
 main h1 {
   font-size: 2.5rem;
+  color: teal;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+h2 span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: teal;
+}
+
+h3 {
+  margin-top: 5px;
+  font-weight: normal;
+}
+
+h3 span {
+  font-weight: bold;
   color: teal;
 }
 
@@ -46,14 +67,35 @@ main h1 {
   font-size: 0.7rem;
 }
 
+.nav-bar a:hover {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* align-items: center; */
+}
+
 input {
   border-radius: 4px;
   border: 1px solid lightgray;
   font-weight: lighter;
   font-style: italic;
   padding: 10px 0;
+  padding-left: 5px;
   width: 300px;
-  margin: 15px 0;
+  margin: 20px 0;
+}
+
+.display {
+  display: block;
+}
+
+.hide {
+  display: none;
 }
 
 .start-game {
@@ -67,21 +109,13 @@ input {
   padding: 20px 0;
 }
 
-#game-content {
+.game-display {
   display: flex;
   justify-content: space-between;
 }
 
 .start-game {
   background-color: teal;
-}
-
-.display {
-  display: block;
-}
-
-.hide {
-  display: none;
 }
 
 .card {
@@ -91,21 +125,70 @@ input {
 .card-container {
   display: table;
   table-layout: fixed;
-  width: 100%;
-  max-width: 900px;
+  width: 80%;
+  max-width: 550px;
 }
 
 .card-container div {
   display: table-cell;
-  width: 100px;
+  width: 70px;
 }
 
 .card-container img {
   display: block;
 }
 
-#hit {
-  background-color: teal;
+#pc {
+  height: 400px;
+  padding: 20px;
+  margin: 20px;
+  border: 0.5px solid lightgray;
+  border-radius: 12px;
+  box-shadow: 10px 10px 8px lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#player {
+  height: 400px;
+  padding: 20px;
+  margin: 20px;
+  border: 0.5px solid lightgray;
+  border-radius: 12px;
+  box-shadow: 10px 10px 8px lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#next-move {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 30px 10px;
+}
+
+#next-move div {
+  width: 80px;
+  margin: 10px 0;
+}
+
+#next-move div h6 {
+  font-size: 0.7rem;
+  font-weight: normal;
+  text-align: left;
+  margin: 10px 0;
+}
+
+.top-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.action-button {
   border: none;
   text-decoration: none;
   color: white;
@@ -113,63 +196,179 @@ input {
   border-radius: 12px;
   text-align: center;
   box-sizing: border-box;
-  width: 80px;
+  width: 90px;
   padding: 10px 0;
-  margin: 20px 0;
+  margin: 10px 0;
+}
+
+#hit {
+  background-color: teal;
+}
+
+#hit:hover {
+  border: 3px solid teal;
+  color: teal;
+  background-color: white;
+  padding: 7px 0;
 }
 
 #stand {
   background-color: rebeccapurple;
-  border: none;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 12px;
-  text-align: center;
+}
+
+#stand:hover {
+  background-color: white;
+  border: 3px solid rebeccapurple;
+  color: rebeccapurple;
+  padding: 7px 0;
+}
+
+#double {
+  background-color: goldenrod;
+}
+
+#double:hover {
+  background-color: white;
+  border: 3px solid goldenrod;
+  color: goldenrod;
+  padding: 7px 0;
+}
+
+#halve {
+  background-color: rgb(255, 72, 0);
+}
+
+#halve:hover {
+  background-color: white;
+  border: 3px solid rgb(255, 72, 0);
+  color: rgb(255, 72, 0);
+  padding: 7px 0;
+}
+
+.toast-message {
+  visibility: hidden;
+  min-width: 400px;
+  height: 150px;
   box-sizing: border-box;
-  width: 80px;
-  padding: 10px 0;
-  margin: 20px 0;
+  background-color: white;
+  text-align: left;
+  border-radius: 12px;
+  box-shadow: 10px 10px 8px lightgray;
+  padding: 16px;
+  padding-left: 10px;
+  position: fixed;
+  z-index: 1;
+  left: 35%;
+  bottom: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.toast-message.show {
+  visibility: visible;
+}
+
+.toast-message h5 {
+  font-size: 0.7rem;
+  font-weight: normal;
+  color: black;
+}
+
+.toast-message h5 span {
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 #loss {
-  visibility: hidden;
-  min-width: 350px;
-  margin-left: -125px;
-  background-color: rgba(102, 51, 153, 0.75);
-  color: #fff;
-  text-align: center;
-  border-radius: 12px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 50%;
+  color: rgb(102, 51, 153);
+  border-left: 5px solid rgb(102, 51, 153);
 }
 
-#loss.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+#loss button {
+  background-color: rebeccapurple;
+}
+
+#loss h5 span {
+  color: rebeccapurple;
 }
 
 #win {
-  visibility: hidden;
-  min-width: 350px;
-  margin-left: -125px;
-  background-color: rgba(0, 128, 128, 0.75);
-  color: #fff;
-  text-align: center;
-  border-radius: 12px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 50%;
+  color: rgb(0, 128, 128);
+  border-left: 5px solid rgb(0, 128, 128);
 }
 
-#win.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+#win button {
+  background-color: teal;
+}
+
+#win h5 span {
+  color: teal;
+}
+
+#tie {
+  color: goldenrod;
+  border-left: 5px solid goldenrod;
+}
+
+#tie button {
+  background-color: goldenrod;
+}
+
+#tie h5 span {
+  color: goldenrod;
+}
+
+#game-over {
+  width: 500px;
+  height: 250px;
+  color: rgb(102, 51, 153);
+  border-left: 5px solid rgb(102, 51, 153);
+  left: 30%;
+  bottom: 30%;
+}
+
+#game-over button {
+  background-color: rebeccapurple;
+}
+
+#block-double-bet {
+  width: 500px;
+  height: 250px;
+  color: rgb(102, 51, 153);
+  border-left: 5px solid rgb(102, 51, 153);
+  left: 30%;
+  bottom: 30%;
+}
+
+#block-double-bet button {
+  background-color: rebeccapurple;
+}
+
+#form-misfilled {
+  width: 500px;
+  height: 250px;
+  color: rgb(102, 51, 153);
+  border-left: 5px solid rgb(102, 51, 153);
+  left: 30%;
+  bottom: 30%;
+}
+
+#form-misfilled button {
+  background-color: rebeccapurple;
+}
+
+.toast-btn {
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: normal;
+  font-size: 0.7rem;
+  padding: 10px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

@@ -18,42 +18,92 @@
     </nav>
     <main>
       <h1>Welcome to Blackjack!</h1>
-    <form><label for="playerName">Player name:</label><br>
-      <input type="text" id="playerName" name="playerName" placeholder="Type your name here"><br>
-      <label for="initialBet">How many chips would you like to purchase?</label><br>
+    <form><label for="playerName">Player name:</label>
+      <input type="text" id="playerName" name="playerName" placeholder="Type your name here">
+      <label for="initialBalance">Total chips purchased:</label>
+      <input type="number" id="initialBalance" name="initialBalance" placeholder="Choose a $ amount">
+      <label for="initialBet">Bet per game:</label>
       <input type="number" id="initialBet" name="initialBet" placeholder="Choose a $ amount"></form>
     <button class="start-game display">START GAME</button>
   </main>
-    <div id="game-content">
+    <div id="game-content" class="hide">
       <section id="player">
-        <h2 class="hide">Player: <span></span></h3>
-        <h2 class="hide">Balance: $<span>0</span></h2>
-        <h3 class="hide">Sum: <span>0</span></h3>
+        <div><article class="top-info"><h2 class="hide">Player: <span></span></h2>
+        <h2 class="hide">Balance: <span>0</span></h2></article>
+        <h3 class="hide">Current bet: <span>0</span></h3>
+        <h3 class="hide">Sum: <span></span></h3>
+      </div>
         <div class="hide">
           <div><img class="card" src="images/2C.png" alt="Card Player" /></div>
           <div><img class="card" src="images/2C.png" alt="Card Player" /></div>
         </div>
       </section>
       <section id="next-move">
-        <button id="hit" class="hide"><div class="target btn-background"></div>HIT</button>
-        <button id="stand" class="hide">STAND</button>
+        <div><h6>Choose your next move:</h6></div>
+        <button id="hit" class="action-button">HIT</button>
+        <button id="stand" class="action-button">STAND</button>
+        <div><h6>Change your bet:</h6></div>
+        <button id="double" class="action-button">DOUBLE</button>
+        <button id="halve" class="action-button">HALVE</button>
       </section>
       <section id="pc">
-        <h2 class="hide">Dealer <span></span></h3>
-        <h3 class="hide">Sum: <span>0</span></h3>
+        <div><article class="top-info"><h2 class="hide">Player: <span>Dealer</span></h2></article>
+        <h3 class="hide">Sum: <span></span></h3>
+      </div>
         <div class="hide">
           <div>
-            <img class="card" src="images/2C.png" alt="Card Computer" />
+            <img class="card" src="images/purple_back.png" alt="Card Computer" />
           </div>
           <div>
-            <img class="card" src="images/2C.png" alt="Card Computer" />
+            <img class="card" src="images/purple_back.png" alt="Card Computer" />
           </div>
         </div>
       </section>
     </div>
-<div id="loss">You lost.........</div>
-<div id="win">You won.........</div>
+<div id="loss" class="toast-message"><h4>YOU LOST!</h4>
+  <h5><span></span> were removed from your balance</h5>
+  <div class="btn-container"><button class="deal-cards-again toast-btn">Deal cards again</button>
+  <button class="main-screen toast-btn">Return to main screen</button>
+</div>
+</div>
+  
+<div id="win" class="toast-message">
+  <h4>YOU WON!</h4>
+  <h5><span></span> were added to your balance</h5>
+  <div class="btn-container"><button class="deal-cards-again toast-btn">Deal cards again</button>
+  <button class="main-screen toast-btn">Return to main screen</button></div>
+</div>
+
+<div id="tie" class="toast-message">
+  <h4>IT'S A TIE!</h4>
+  <h5>Your balance remains unaffected, there was a tie.</h5>
+  <div class="btn-container"><button class="deal-cards-again toast-btn">Deal cards again</button>
+  <button class="main-screen toast-btn">Return to main screen</button></div>
+</div>
+
+<div id="game-over" class="toast-message">
+  <h4>YOU HAVE NO MORE CHIPS TO PLAY!</h4>
+  <h5>Uh-oh! You don't have any more chips to play. Make sure to buy some more so you can keep playing! Alternatively, you can change your current bet per game.</h5>
+  <div class="btn-container"><button class="main-screen toast-btn">Return to main screen and purchase more chips</button>
+  <button class="change-bet toast-btn">Change current bet to <span></span></button></div>
+</div>
+
+<div id="block-double-bet" class="toast-message">
+  <h4>YOU DON'T HAVE ENOUGH CHIPS TO DOUBLE YOUR BET!</h4>
+  <h5>Uh-oh! You don't have enough chips to double your current bet. Make sure to buy some more or stick to your current bet.</h5>
+  <div class="btn-container"><button class="main-screen toast-btn">Return to main screen and purchase more chips</button>
+  <button class="change-bet toast-btn">Stick to current bet</button></div>
+</div>
+
+<div id="form-misfilled" class="toast-message">
+  <h4>PLEASE CHOOSE ADEQUATE VALUE FOR CHIPS AND BETS!</h4>
+  <h5>Uh-oh! You can't play until you purchase enough chips to play one round. Purchase more chips or decrease the bet value.</h5>
+  <div class="btn-container"><button class="main-screen toast-btn">Ok, I understand</button></div>
+</div>
+
+</div>
     <script src="src/index.js"></script>
     <script src="src/cards.js"></script>
+    <script src="src/btn_click_listeners.js"></script>
   </body>
 </html>

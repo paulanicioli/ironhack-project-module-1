@@ -1,22 +1,64 @@
-document.querySelector("button.start-game").onclick = () => {
-  startGame();
+let gameBlocked = true;
+
+const player = {
+  name: "Player",
+  className: "player",
+  sum: 0,
+  hand: [],
+  balance: 0,
+  bet: 0,
 };
 
-document.getElementById("hit").onclick = () => {
-  if (!gameBlocked) {
-    hitCard(player);
-    updateSum(player);
-    checkOutput();
-  }
-};
+const pc = { name: "PC", className: "pc", sum: 0, hand: [] };
 
-document.getElementById("stand").onclick = () => {
-  if (!gameBlocked) {
-    decideNextPCMove();
-    checkFinalOutput();
-    gameBlocked = true;
-  }
-};
+function returnToMainScreen(button) {
+  // Hide the toast message again
+  const toast = document.getElementById(button);
+  toast.className = "toast-message";
+
+  // Clean the Player and Dealer documents regarding current Game
+  player.hand = [];
+  player.sum = 0;
+  player.name = "";
+  player.balance = 0;
+  pc.hand = [];
+  pc.sum = 0;
+
+  // Leave only 2 card images per player
+  cleanUpCards(player);
+  cleanUpCards(pc);
+
+  // Hide game content
+  document.getElementById("game-content").className = "hide";
+
+  // Show initial screen
+  document.querySelector("main").className = "";
+}
+
+function dealCardsAgain(button) {
+  // Unblock game so it can be replayed
+  gameBlocked = false;
+
+  // Clean the Player and Dealer documents regarding current Game
+  player.hand = [];
+  player.sum = 0;
+  pc.hand = [];
+  pc.sum = 0;
+
+  // Hide the toast message again
+  const toast = document.getElementById(button);
+  toast.className = "toast-message";
+
+  // Leave only 2 card images per player
+  cleanUpCards(player);
+  cleanUpCards(pc);
+
+  // Deal cards again
+  assignInitialCards(player);
+  updateSum(player);
+  assignInitialCards(pc);
+  updateSum(pc);
+}
 
 function startGame() {
   document.querySelector("main").className = "hide";
@@ -26,7 +68,8 @@ function startGame() {
 
   // Adds information from the forms into the player object
 
-  player.balance = document.getElementById("initialBet").value;
+  player.balance = parseInt(document.getElementById("initialBalance").value);
+  player.bet = parseInt(document.getElementById("initialBet").value);
   player.name = document.getElementById("playerName").value;
 
   document.getElementById("player").querySelector("h2 span").innerHTML =
@@ -37,6 +80,12 @@ function startGame() {
     .querySelectorAll("h2 span")[1].innerHTML = printDollarValue(
     player.balance
   );
+  document
+    .getElementById("player")
+    .querySelectorAll("h3 span")[0].innerHTML = printDollarValue(player.bet);
+
+  // Displaying Game Content
+  document.getElementById("game-content").className = "game-display";
 
   //   Initializing two cards for the Player and the PC
 
@@ -44,33 +93,36 @@ function startGame() {
   updateSum(player);
   assignInitialCards(pc);
   updateSum(pc);
-
-  // Display Hit and Stand buttons
-  document.getElementById("next-move").querySelectorAll("button")[0].className =
-    "display";
-  document.getElementById("next-move").querySelectorAll("button")[1].className =
-    "display";
 }
 
 function assignInitialCards(player) {
   for (let i = 0; i < 2; i++) {
     const cardRetrieved = grabRandomCard(cardsDeck);
-    document.getElementById(player.className).querySelector("div").className =
-      "card-container display";
+    document
+      .getElementById(player.className)
+      .querySelectorAll("div")[1].className = "card-container display";
 
-    document.getElementById(player.className).getElementsByClassName("card")[
-      i
-    ].src = cardRetrieved.imageUrl;
     player.hand.push(cardRetrieved);
+    if (player.className === "player") {
+      document.getElementById(player.className).getElementsByClassName("card")[
+        i
+      ].src = cardRetrieved.imageUrl;
+    }
+    reshuffleDeck();
   }
-  // Show Player name, bet and current sum
+  // Show Player name
   document.getElementById(player.className).querySelector("h2").className =
     "display";
-  document.getElementById(player.className).querySelector("h3").className =
-    "display"; // this needs to be commented later on
+
+  // Show balance, bet and current sum for Player
+
   if (player.className === "player") {
-    document.getElementById(player.className).querySelector("h3").className =
-      "display";
+    document
+      .getElementById(player.className)
+      .querySelectorAll("h3")[0].className = "display";
+    document
+      .getElementById(player.className)
+      .querySelectorAll("h3")[1].className = "display";
     document
       .getElementById(player.className)
       .querySelectorAll("h2")[1].className = "display";
@@ -88,36 +140,104 @@ function hitCard(player) {
     .getElementById(player.className)
     .querySelector(".card-container")
     .appendChild(cardNode);
-  document
-    .getElementById(player.className)
-    .querySelector(".card-container")
-    .lastChild.querySelector("img").src = cardRetrieved.imageUrl;
+  if (player.className === "player") {
+    document
+      .getElementById(player.className)
+      .querySelector(".card-container")
+      .lastChild.querySelector("img").src = cardRetrieved.imageUrl;
+  }
   player.hand.push(cardRetrieved);
+  reshuffleDeck();
 }
 
-function updateSum(player) {
-  const newSum = player.hand.reduce((acc, element) => {
-    return (acc += element.value);
-  }, 0);
-  player.sum = newSum;
-  document
-    .getElementById(player.className)
-    .querySelector("h3 span").innerHTML = newSum;
-}
+function showDealerCards() {
+  // Showing sum for Dealer cards
+  document.getElementById("pc").querySelector("h3").className = "display";
 
-function checkOutput() {
-  if (player.sum === 21) {
-    gameBlocked = true;
-    callWinToast();
-  } else if (player.sum > 21) {
-    gameBlocked = true;
-    callLossToast();
+  // Updating card images for dealer
+  for (let i = 0; i < pc.hand.length; i++) {
+    const cardNode = document
+      .getElementById(pc.className)
+      .querySelector(".card-container")
+      .querySelectorAll("div")[i];
+    cardNode.querySelector("img").src = pc.hand[i].imageUrl;
   }
 }
 
-function checkFinalOutput() {
-  if (pc.sum > 21) {
+function updateSum(player) {
+  let newSum = player.hand.reduce((acc, element) => {
+    return (acc += element.value);
+  }, 0);
+  if (isBlackJack(player)) {
+    newSum = 21;
+  }
+  player.sum = newSum;
+  document.getElementById(player.className).querySelectorAll("h3 span")[
+    player.className === "player" ? 1 : 0
+  ].innerHTML = newSum;
+}
+
+function updateBalance(player, output) {
+  if (output === "win") {
+    player.balance += player.bet;
+  } else {
+    player.balance -= player.bet;
+  }
+  document
+    .getElementById(player.className)
+    .querySelectorAll("h2 span")[1].innerHTML = printDollarValue(
+    player.balance
+  );
+  if (player.balance < player.bet) {
+    callGameOverToast(player.balance > 0);
+  }
+}
+
+function checkOutput() {
+  if (player.sum > 21) {
+    gameBlocked = true;
+    callLossToast();
+  } else if (player.sum === 21) {
+    if (isBlackJack(pc)) {
+      callLossToast();
+    } else {
+      decideNextPCMove();
+      if (pc.sum === 21) {
+        callTieToast();
+      } else {
+        callWinToast();
+      }
+    }
+  }
+}
+
+function checkBlackJack() {
+  gameBlocked = true;
+  if (isBlackJack(pc)) {
+    callTieToast();
+  } else {
     callWinToast();
+  }
+  showDealerCards();
+}
+
+function checkFinalOutput() {
+  decideNextPCMove();
+  showDealerCards();
+  if (isBlackJack(player)) {
+    checkBlackJack();
+  } else if (player.sum === 21) {
+    if (isBlackJack(pc)) {
+      callLossToast();
+    } else if (pc.sum !== 21) {
+      callWinToast();
+    } else {
+      callTieToast();
+    }
+  } else if (pc.sum > 21) {
+    callWinToast();
+  } else if (pc.sum === player.sum) {
+    callTieToast();
   } else if (pc.sum > player.sum) {
     callLossToast();
   } else {
@@ -125,27 +245,72 @@ function checkFinalOutput() {
   }
 }
 
-function decideNextPCMove() {
-  while (pc.sum < 14) {
-    hitCard(pc);
-    updateSum(pc);
+function isBlackJack(player) {
+  if (player.hand.length > 2) {
+    return false;
+  }
+  if (
+    (player.hand[0].isAce && player.hand[1].value === 10) ||
+    (player.hand[1].isAce && player.hand[0].value === 10)
+  ) {
+    return true;
+  } else {
+    return false;
   }
 }
 
+function decideNextPCMove() {
+  while (pc.sum < 17) {
+    hitCard(pc);
+    updateSum(pc);
+    reshuffleDeck();
+  }
+}
+
+function callGameOverToast(boolean) {
+  const changeBetBtn = document.querySelector(".change-bet");
+  changeBetBtn.querySelector("span").innerHTML = printDollarValue(
+    player.balance
+  );
+  if (!boolean) {
+    changeBetBtn.className = "change-bet toast-btn hide";
+  } else {
+    changeBetBtn.className = "change-bet toast-btn";
+  }
+
+  const toast = document.getElementById("game-over");
+  toast.className = "toast-message show";
+}
+
 function callLossToast() {
-  const toast = document.getElementById("loss");
-  toast.className = "show";
-  setTimeout(function () {
-    toast.className = toast.className.replace("show", "");
-  }, 6000);
+  updateBalance(player, "loss");
+  if (player.balance >= player.bet) {
+    const toast = document.getElementById("loss");
+    toast.querySelector("h5 span").innerHTML = printDollarValue(player.bet);
+    toast.className = "toast-message show";
+  }
+
+  // setTimeout(function () {
+  //   toast.className = toast.className.replace("show", "");
+  // }, 6000);
 }
 
 function callWinToast() {
+  updateBalance(player, "win");
   const toast = document.getElementById("win");
-  toast.className = "show";
-  setTimeout(function () {
-    toast.className = toast.className.replace("show", "");
-  }, 6000);
+  toast.querySelector("h5 span").innerHTML = printDollarValue(player.bet);
+  toast.className = "toast-message show";
+  // setTimeout(function () {
+  //   toast.className = toast.className.replace("show", "");
+  // }, 6000);
+}
+
+function callTieToast() {
+  const toast = document.getElementById("tie");
+  toast.className = "toast-message show";
+  // setTimeout(function () {
+  //   toast.className = toast.className.replace("show", "");
+  // }, 6000);
 }
 
 function printDollarValue(number) {
@@ -159,9 +324,18 @@ function printDollarValue(number) {
     }
     counter++;
   }
-  return stringNumber;
+  return "$" + stringNumber;
 }
 
-let gameBlocked = true;
-const player = { name: "Player", className: "player", sum: 0, hand: [] };
-const pc = { name: "PC", className: "pc", sum: 0, hand: [] };
+function cleanUpCards(player) {
+  document
+    .getElementById(player.className)
+    .querySelectorAll(
+      "div"
+    )[1].innerHTML = `<div><img class="card" src="images/purple_back.png" alt="Card Player"></div>
+    <div><img class="card" src="images/purple_back.png" alt="Card Player"></div>`;
+  if (player.className === "pc") {
+    document.getElementById(player.className).querySelector("h3").className =
+      "hide";
+  }
+}
