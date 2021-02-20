@@ -202,6 +202,7 @@ function checkOutput() {
       callLossToast();
     } else {
       decideNextPCMove();
+      showDealerCards();
       if (pc.sum === 21) {
         callTieToast();
       } else {
