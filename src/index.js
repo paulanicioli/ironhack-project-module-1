@@ -12,11 +12,11 @@ const player = {
 const pc = { name: "PC", className: "pc", sum: 0, hand: [] };
 
 function returnToMainScreen(button) {
-  // Hide the toast message again
+  // Hides the toast message again
   const toast = document.getElementById(button);
   toast.className = "toast-message";
 
-  // Clean the Player and Dealer documents regarding current Game
+  // Cleans the Player and Dealer documents regarding current Game
   player.hand = [];
   player.sum = 0;
   player.name = "";
@@ -24,32 +24,32 @@ function returnToMainScreen(button) {
   pc.hand = [];
   pc.sum = 0;
 
-  // Leave only 2 card images per player
+  // Leaves only 2 card images per player
   cleanUpCards(player);
   cleanUpCards(pc);
 
-  // Hide game content
+  // Hides game content
   document.getElementById("game-content").className = "hide";
 
-  // Show initial screen
+  // Shows initial screen
   document.querySelector("main").className = "";
 }
 
 function dealCardsAgain(button) {
-  // Unblock game so it can be replayed
+  // Unblocks game so it can be replayed
   gameBlocked = false;
 
-  // Clean the Player and Dealer documents regarding current Game
+  // Cleans the Player and Dealer documents regarding current Game
   player.hand = [];
   player.sum = 0;
   pc.hand = [];
   pc.sum = 0;
 
-  // Hide the toast message again
+  // Hides the toast message again
   const toast = document.getElementById(button);
   toast.className = "toast-message";
 
-  // Leave only 2 card images per player
+  // Leaves only 2 card images per player
   cleanUpCards(player);
   cleanUpCards(pc);
 
@@ -329,10 +329,9 @@ function cleanUpCards(player) {
       "div"
     )[1].innerHTML = `<div><img class="card" src="images/purple_back.png" alt="Card Player"></div>
     <div><img class="card" src="images/purple_back.png" alt="Card Player"></div>`;
-  if (player.className === "pc") {
-    document.getElementById(player.className).querySelector("h3").className =
-      "hide";
-  }
+  document.getElementById(player.className).querySelectorAll("h3")[
+    player.className === "pc" ? 0 : 1
+  ].className = "hide";
 }
 
 function callBlackjackAnimation() {
