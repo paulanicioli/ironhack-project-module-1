@@ -47,6 +47,15 @@ document.getElementById("halve").onclick = () => {
     .querySelectorAll("h3 span")[0].innerHTML = printDollarValue(player.bet);
 };
 
+document.getElementById("show-cards").onclick = () => {
+  document.getElementById("next-move").querySelectorAll("div")[1].className =
+    "hide";
+  document.getElementById("halve").className = "hide";
+  document.getElementById("double").className = "hide";
+  document.getElementById("show-cards").className = "hide";
+  showCards(player);
+};
+
 document
   .getElementById("loss")
   .querySelector(".deal-cards-again").onclick = () => {

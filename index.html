@@ -24,8 +24,8 @@
       <input type="number" id="initialBalance" name="initialBalance" placeholder="Choose a $ amount">
       <label for="initialBet">Bet per game:</label>
       <input type="number" id="initialBet" name="initialBet" placeholder="Choose a $ amount"></form>
-    <button class="start-game display">Play Blackjack</button>
-    <button class="steroids-game display">Play Blackjack on Steroids</button>
+    <button class="start-game start-btn">Play Blackjack</button>
+    <button class="steroids-game start-btn">Play Blackjack on Steroids</button>
   </main>
     <div id="game-content" class="hide">
       <section id="player">
@@ -35,8 +35,8 @@
         <h3 class="hide">Sum: <span></span></h3>
       </div>
         <div class="hide">
-          <div><img class="card" src="images/2C.png" alt="Card Player" /></div>
-          <div><img class="card" src="images/2C.png" alt="Card Player" /></div>
+          <div><img class="card" src="images/purple_back.png" alt="Card Player" /></div>
+          <div><img class="card" src="images/purple_back.png" alt="Card Player" /></div>
         </div>
       </section>
       <section id="next-move">
@@ -46,6 +46,7 @@
         <div><h6>Change your bet:</h6></div>
         <button id="double" class="action-button">DOUBLE</button>
         <button id="halve" class="action-button">HALVE</button>
+        <button id="show-cards" class="action-button">SHOW CARDS</button>
       </section>
       <section id="pc">
         <div><article class="top-info"><h2 class="hide">Player: <span>Dealer</span></h2></article>

@@ -58,6 +58,7 @@ function dealCardsAgain(button) {
   updateSum(player);
   assignInitialCards(pc);
   updateSum(pc);
+  displayActionButtons();
 }
 
 function startGame() {
@@ -93,6 +94,15 @@ function startGame() {
   updateSum(player);
   assignInitialCards(pc);
   updateSum(pc);
+  displayActionButtons();
+}
+
+function displayActionButtons() {
+  document.getElementById("next-move").querySelectorAll("div")[1].className =
+    "display";
+  document.getElementById("halve").className = "action-button";
+  document.getElementById("double").className = "action-button";
+  document.getElementById("show-cards").className = "action-button";
 }
 
 function assignInitialCards(player) {
@@ -103,26 +113,18 @@ function assignInitialCards(player) {
       .querySelectorAll("div")[1].className = "card-container display";
 
     player.hand.push(cardRetrieved);
-    if (player.className === "player") {
-      document.getElementById(player.className).getElementsByClassName("card")[
-        i
-      ].src = cardRetrieved.imageUrl;
-    }
     reshuffleDeck();
   }
   // Show Player name
   document.getElementById(player.className).querySelector("h2").className =
     "display";
 
-  // Show balance, bet and current sum for Player
+  // Show balance and bet for Player
 
   if (player.className === "player") {
     document
       .getElementById(player.className)
       .querySelectorAll("h3")[0].className = "display";
-    document
-      .getElementById(player.className)
-      .querySelectorAll("h3")[1].className = "display";
     document
       .getElementById(player.className)
       .querySelectorAll("h2")[1].className = "display";
@@ -150,17 +152,19 @@ function hitCard(player) {
   reshuffleDeck();
 }
 
-function showDealerCards() {
+function showCards(player) {
   // Showing sum for Dealer cards
-  document.getElementById("pc").querySelector("h3").className = "display";
+  document.getElementById(player.className).querySelectorAll("h3")[
+    player.className === "player" ? 1 : 0
+  ].className = "display";
 
   // Updating card images for dealer
-  for (let i = 0; i < pc.hand.length; i++) {
+  for (let i = 0; i < player.hand.length; i++) {
     const cardNode = document
-      .getElementById(pc.className)
+      .getElementById(player.className)
       .querySelector(".card-container")
       .querySelectorAll("div")[i];
-    cardNode.querySelector("img").src = pc.hand[i].imageUrl;
+    cardNode.querySelector("img").src = player.hand[i].imageUrl;
   }
 }
 
@@ -168,7 +172,7 @@ function updateSum(player) {
   let newSum = player.hand.reduce((acc, element) => {
     return (acc += element.value);
   }, 0);
-  if (isBlackJack(player)) {
+  if (isBlackjack(player)) {
     newSum = 21;
   }
   player.sum = newSum;
@@ -198,11 +202,11 @@ function checkOutput() {
     gameBlocked = true;
     callLossToast();
   } else if (player.sum === 21) {
-    if (isBlackJack(pc)) {
+    if (isBlackjack(pc)) {
       callLossToast();
     } else {
       decideNextPCMove();
-      showDealerCards();
+      showCards(pc);
       if (pc.sum === 21) {
         callTieToast();
       } else {
@@ -212,23 +216,23 @@ function checkOutput() {
   }
 }
 
-function checkBlackJack() {
+function checkBlackjack() {
   gameBlocked = true;
-  if (isBlackJack(pc)) {
+  if (isBlackjack(pc)) {
     callTieToast();
   } else {
     callWinToast();
   }
-  showDealerCards();
+  showCards(pc);
 }
 
 function checkFinalOutput() {
   decideNextPCMove();
-  showDealerCards();
-  if (isBlackJack(player)) {
-    checkBlackJack();
+  showCards(pc);
+  if (isBlackjack(player)) {
+    checkBlackjack();
   } else if (player.sum === 21) {
-    if (isBlackJack(pc)) {
+    if (isBlackjack(pc)) {
       callLossToast();
     } else if (pc.sum !== 21) {
       callWinToast();
@@ -246,7 +250,7 @@ function checkFinalOutput() {
   }
 }
 
-function isBlackJack(player) {
+function isBlackjack(player) {
   if (player.hand.length > 2) {
     return false;
   }
@@ -290,10 +294,6 @@ function callLossToast() {
     toast.querySelector("h5 span").innerHTML = printDollarValue(player.bet);
     toast.className = "toast-message show";
   }
-
-  // setTimeout(function () {
-  //   toast.className = toast.className.replace("show", "");
-  // }, 6000);
 }
 
 function callWinToast() {
@@ -301,17 +301,11 @@ function callWinToast() {
   const toast = document.getElementById("win");
   toast.querySelector("h5 span").innerHTML = printDollarValue(player.bet);
   toast.className = "toast-message show";
-  // setTimeout(function () {
-  //   toast.className = toast.className.replace("show", "");
-  // }, 6000);
 }
 
 function callTieToast() {
   const toast = document.getElementById("tie");
   toast.className = "toast-message show";
-  // setTimeout(function () {
-  //   toast.className = toast.className.replace("show", "");
-  // }, 6000);
 }
 
 function printDollarValue(number) {
@@ -339,4 +333,10 @@ function cleanUpCards(player) {
     document.getElementById(player.className).querySelector("h3").className =
       "hide";
   }
+}
+
+function callBlackjackAnimation() {
+  setTimeout(function () {
+    blackjackImage.style.display = "none";
+  }, 2000);
 }
