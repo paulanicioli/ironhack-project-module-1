@@ -57,7 +57,7 @@ h3 span {
 }
 
 .nav-bar ul {
-  width: 300px;
+  width: 40%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -594,6 +594,10 @@ input {
 @media (max-width: 746px) {
   * {
     font-size: 14px;
+  }
+
+  .nav-bar ul {
+    width: 70%;
   }
 
   .game-logo {

@@ -11,11 +11,13 @@ document.querySelector("button.start-game").onclick = () => {
     document.getElementById("alert").play();
   } else {
     startGame();
+    document.querySelector(".nav-bar ul li").className = "display";
   }
 };
 
 document.getElementById("hit").onclick = () => {
   if (!gameBlocked) {
+    document.getElementById("flip-card").play();
     hitCard(player);
     updateSum(player);
     checkOutput();
