@@ -3,10 +3,12 @@ document.querySelector("button.start-game").onclick = () => {
     document.getElementById("initialBalance").value == "" ||
     document.getElementById("initialBet").value == "" ||
     parseInt(document.getElementById("initialBalance").value) <
-      parseInt(document.getElementById("initialBet").value)
+      parseInt(document.getElementById("initialBet").value) ||
+    parseInt(document.getElementById("initialBet").value) === 0
   ) {
     const toast = document.getElementById("form-misfilled");
     toast.className = "toast-message show";
+    document.getElementById("alert").play();
   } else {
     startGame();
   }
@@ -37,6 +39,7 @@ document.getElementById("double").onclick = () => {
   } else {
     const toast = document.getElementById("block-double-bet");
     toast.className = "toast-message show";
+    document.getElementById("alert").play();
   }
 };
 

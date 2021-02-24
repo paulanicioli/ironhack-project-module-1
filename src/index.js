@@ -312,6 +312,7 @@ function callGameOverToast(boolean) {
 
   const toast = document.getElementById("game-over");
   toast.className = "toast-message show";
+  document.getElementById("alert").play();
 }
 
 function callLossToast() {
