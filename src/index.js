@@ -7,6 +7,10 @@ const player = {
   hand: [],
   balance: 0,
   bet: 0,
+  wins: 0,
+  losses: 0,
+  ties: 0,
+  initialBalance: 0,
 };
 
 const pc = { name: "PC", className: "pc", sum: 0, hand: [] };
@@ -53,6 +57,12 @@ function dealCardsAgain(button) {
   cleanUpCards(player);
   cleanUpCards(pc);
 
+  // Hides next move action buttons
+  document.getElementById("next-move").querySelectorAll("div")[0].className =
+    "hide";
+  document.getElementById("hit").className = "hide";
+  document.getElementById("stand").className = "hide";
+
   // Deal cards again
   assignInitialCards(player);
   updateSum(player);
@@ -70,6 +80,9 @@ function startGame() {
   // Adds information from the forms into the player object
 
   player.balance = parseInt(document.getElementById("initialBalance").value);
+  player.initialBalance = parseInt(
+    document.getElementById("initialBalance").value
+  );
   player.bet = parseInt(document.getElementById("initialBet").value);
   player.name = document.getElementById("playerName").value;
 
@@ -84,6 +97,12 @@ function startGame() {
   document
     .getElementById("player")
     .querySelectorAll("h3 span")[0].innerHTML = printDollarValue(player.bet);
+
+  // Hides next move buttons
+  document.getElementById("next-move").querySelectorAll("div")[0].className =
+    "hide";
+  document.getElementById("hit").className = "hide";
+  document.getElementById("stand").className = "hide";
 
   // Displaying Game Content
   document.getElementById("game-content").className = "game-display";
@@ -108,9 +127,9 @@ function displayActionButtons() {
 function assignInitialCards(player) {
   for (let i = 0; i < 2; i++) {
     const cardRetrieved = grabRandomCard(cardsDeck);
-    document
-      .getElementById(player.className)
-      .querySelectorAll("div")[1].className = "card-container display";
+    document.getElementById(player.className).querySelectorAll("div")[
+      player.className === "player" ? 4 : 1
+    ].className = "card-container display";
 
     player.hand.push(cardRetrieved);
     reshuffleDeck();
@@ -181,12 +200,15 @@ function updateSum(player) {
   ].innerHTML = newSum;
 }
 
-function updateBalance(player, output) {
+function updateBalance(output) {
   if (output === "win") {
     player.balance += player.bet;
   } else {
     player.balance -= player.bet;
   }
+  document
+    .getElementById(player.className)
+    .querySelectorAll("h2")[1].className = "animate__animated animate__bounce";
   document
     .getElementById(player.className)
     .querySelectorAll("h2 span")[1].innerHTML = printDollarValue(
@@ -195,6 +217,9 @@ function updateBalance(player, output) {
   if (player.balance < player.bet) {
     callGameOverToast(player.balance > 0);
   }
+  document.getElementById("net-balance").innerHTML = printDollarValue(
+    player.balance - player.initialBalance
+  );
 }
 
 function checkOutput() {
@@ -224,6 +249,7 @@ function checkBlackjack() {
     callWinToast();
   }
   showCards(pc);
+  callBlackjackAnimation();
 }
 
 function checkFinalOutput() {
@@ -231,6 +257,7 @@ function checkFinalOutput() {
   showCards(pc);
   if (isBlackjack(player)) {
     checkBlackjack();
+    callBlackjackAnimation();
   } else if (player.sum === 21) {
     if (isBlackjack(pc)) {
       callLossToast();
@@ -288,46 +315,54 @@ function callGameOverToast(boolean) {
 }
 
 function callLossToast() {
-  updateBalance(player, "loss");
+  updateBalance("loss");
+  lostMoney();
+  document.getElementById("push-chips").play();
   if (player.balance >= player.bet) {
     const toast = document.getElementById("loss");
     toast.querySelector("h5 span").innerHTML = printDollarValue(player.bet);
     toast.className = "toast-message show";
   }
+  player.losses++;
+  document.getElementById("loss-count").innerHTML = player.losses;
 }
 
 function callWinToast() {
-  updateBalance(player, "win");
+  updateBalance("win");
+  gainedMoney();
+  document.getElementById("push-chips").play();
   const toast = document.getElementById("win");
   toast.querySelector("h5 span").innerHTML = printDollarValue(player.bet);
   toast.className = "toast-message show";
+  player.wins++;
+  document.getElementById("win-count").innerHTML = player.wins;
 }
 
 function callTieToast() {
   const toast = document.getElementById("tie");
   toast.className = "toast-message show";
+  player.ties++;
+  document.getElementById("tie-count").innerHTML = player.ties;
 }
 
 function printDollarValue(number) {
   let stringNumber = "";
   let counter = 0;
-  for (let i = String(number).length - 1; i >= 0; i--) {
+  for (let i = String(Math.abs(number)).length - 1; i >= 0; i--) {
     if (counter % 3 == 0 && counter > 0) {
-      stringNumber = String(number)[i] + "," + stringNumber;
+      stringNumber = String(Math.abs(number))[i] + "," + stringNumber;
     } else {
-      stringNumber = String(number)[i] + stringNumber;
+      stringNumber = String(Math.abs(number))[i] + stringNumber;
     }
     counter++;
   }
-  return "$" + stringNumber;
+  return (number < 0 ? "-" : "") + "$" + stringNumber;
 }
 
 function cleanUpCards(player) {
-  document
-    .getElementById(player.className)
-    .querySelectorAll(
-      "div"
-    )[1].innerHTML = `<div><img class="card" src="images/purple_back.png" alt="Card Player"></div>
+  document.getElementById(player.className).querySelectorAll("div")[
+    player.className === "pc" ? 1 : 4
+  ].innerHTML = `<div><img class="card" src="images/purple_back.png" alt="Card Player"></div>
     <div><img class="card" src="images/purple_back.png" alt="Card Player"></div>`;
   document.getElementById(player.className).querySelectorAll("h3")[
     player.className === "pc" ? 0 : 1
@@ -335,7 +370,28 @@ function cleanUpCards(player) {
 }
 
 function callBlackjackAnimation() {
+  console.log("Blackjack animation was called!");
+  document.getElementById("blackjack").className =
+    "transitions animate__animated animate__heartBeat";
   setTimeout(function () {
-    blackjackImage.style.display = "none";
+    document.getElementById("blackjack").className = "hide";
+  }, 2000);
+}
+
+function lostMoney() {
+  console.log("Money loss animation was called!");
+  document.getElementById("money-loss").className =
+    "transitions animate__animated animate__fadeOutDown";
+  setTimeout(function () {
+    document.getElementById("money-loss").className = "hide";
+  }, 2000);
+}
+
+function gainedMoney() {
+  console.log("Money gain animation was called!");
+  document.getElementById("money-gain").className =
+    "transitions animate__animated animate__fadeOutUp";
+  setTimeout(function () {
+    document.getElementById("money-gain").className = "hide";
   }, 2000);
 }

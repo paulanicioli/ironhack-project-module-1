@@ -48,11 +48,16 @@ document.getElementById("halve").onclick = () => {
 };
 
 document.getElementById("show-cards").onclick = () => {
+  document.getElementById("flip-card").play();
   document.getElementById("next-move").querySelectorAll("div")[1].className =
     "hide";
   document.getElementById("halve").className = "hide";
   document.getElementById("double").className = "hide";
   document.getElementById("show-cards").className = "hide";
+  document.getElementById("next-move").querySelectorAll("div")[0].className =
+    "display";
+  document.getElementById("hit").className = "action-button";
+  document.getElementById("stand").className = "action-button";
   showCards(player);
 };
 

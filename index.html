@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blackjack</title>
     <link rel="stylesheet" href="styles/style.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
   </head>
   <body>
     <nav class="nav-bar">
@@ -29,10 +33,13 @@
   </main>
     <div id="game-content" class="hide">
       <section id="player">
-        <div><article class="top-info"><h2 class="hide">Player: <span></span></h2>
-        <h2 class="hide">Balance: <span>0</span></h2></article>
-        <h3 class="hide">Current bet: <span>0</span></h3>
-        <h3 class="hide">Sum: <span></span></h3>
+        <div><article class="top-info"><h2>Player: <span></span></h2>
+        <h2>Balance: <span>0</span></h2></article>
+        <div class="top-info"><div><h3>Current bet: <span>0</span></h3>
+        <h3 class="hide">Sum: <span></span></h3></div>
+        <div class="left-side"><h3>Net balance: <span id="net-balance">$0</span></h3>
+          <h3>Wins: <span id="win-count">0</span> | Losses: <span id="loss-count">0</span> | Ties: <span id="tie-count">0</span></h3></div>
+        </div>
       </div>
         <div class="hide">
           <div><img class="card" src="images/purple_back.png" alt="Card Player" /></div>
@@ -40,9 +47,9 @@
         </div>
       </section>
       <section id="next-move">
-        <div><h6>Choose your next move:</h6></div>
-        <button id="hit" class="action-button">HIT</button>
-        <button id="stand" class="action-button">STAND</button>
+        <div class="hide"><h6>Choose your next move:</h6></div>
+        <button id="hit" class="action-button hide">HIT</button>
+        <button id="stand" class="action-button hide">STAND</button>
         <div><h6>Change your bet:</h6></div>
         <button id="double" class="action-button">DOUBLE</button>
         <button id="halve" class="action-button">HALVE</button>
@@ -103,7 +110,13 @@
   <div class="btn-container"><button class="main-screen toast-btn">Ok, I understand</button></div>
 </div>
 
+<div id="blackjack" class="hide"><img src="images/blackjack.png" alt="Blackjack!" /></div>
+  <div id="money-loss" class="hide"><img src="images/money-loss.png" alt="Money Loss!" /></div>
+    <div id="money-gain" class="hide"><img src="images/money-gain.png" alt="Money Gain!" />
 </div>
+</div>
+<audio id="flip-card"><source src="audio/card-flip.wav" type="audio/wav"></audio>
+<audio id="push-chips"><source src="audio/allinpushchips.wav" type="audio/wav"></audio>
     <script src="src/index.js"></script>
     <script src="src/cards.js"></script>
     <script src="src/btn_click_listeners.js"></script>
