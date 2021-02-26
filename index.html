@@ -18,12 +18,12 @@
         <li class="hide"><a href="https://paulanicioli.github.io/ironhack-project-module-1/">Restart</a></li>
         <li><a href="https://bicyclecards.com/how-to-play/blackjack/">About the game</a></li>
         <li><a href="#">Support</a></li>
-        <li><a href="https://forms.gle/BBzCemKg9PpJHMWQ6">Give feedback</a></li>
+        <li><a id="feedback" href="#" >Give feedback</a></li>
       </ul>
     </nav>
     <main>
       <img class="welcome-image" src="images/welcome_screen.PNG" alt="Welcome to BlackJack!"/>
-    <form><label for="playerName">Player name:</label>
+    <form class="initial-form"><label for="playerName">Player name:</label>
       <input type="text" id="playerName" name="playerName" placeholder="Type your name here">
       <label for="initialBalance">Total chips purchased:</label>
       <input type="number" id="initialBalance" name="initialBalance" placeholder="Choose a $ amount">
@@ -31,6 +31,11 @@
       <input type="number" id="initialBet" name="initialBet" placeholder="Choose a $ amount"></form>
     <button class="start-game start-btn">Play Blackjack</button>
     <button class="steroids-game start-btn">Play Blackjack on Steroids</button>
+
+    <form id="additional-purchase" class="hide">
+      <label for="additionalBalance">How many more chips would you like to purchase?</label>
+      <input type="number" id="additionalBalance" name="additionalBalance" placeholder="Choose a $ amount"></form>
+    <button class="restart start-btn hide">Return to Game</button>
   </main>
     <div id="game-content" class="hide">
       <section id="player">
@@ -94,14 +99,14 @@
 <div id="game-over" class="toast-message">
   <h4>YOU HAVE NO MORE CHIPS TO PLAY!</h4>
   <h5>Uh-oh! You don't have any more chips to play. Make sure to buy some more so you can keep playing! Alternatively, you can change your current bet per game.</h5>
-  <div class="btn-container"><button class="main-screen toast-btn">Return to main screen and purchase more chips</button>
+  <div class="btn-container"><button class="main-screen toast-btn">Purchase more chips</button>
   <button class="change-bet toast-btn">Change current bet to <span></span></button></div>
 </div>
 
 <div id="block-double-bet" class="toast-message">
   <h4>YOU DON'T HAVE ENOUGH CHIPS TO DOUBLE YOUR BET!</h4>
   <h5>Uh-oh! You don't have enough chips to double your current bet. Make sure to buy some more or stick to your current bet.</h5>
-  <div class="btn-container"><button class="main-screen toast-btn">Return to main screen and purchase more chips</button>
+  <div class="btn-container"><button class="main-screen toast-btn">Purchase more chips</button>
   <button class="change-bet toast-btn">Stick to current bet</button></div>
 </div>
 
@@ -116,6 +121,14 @@
     <div id="money-gain" class="hide"><img src="images/money-gain.png" alt="Money Gain!" />
 </div>
 </div>
+
+<div id="feedback-form" class="hide">
+  <div><a href="#">Close feedback form X</a></div>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBLBcXruPdDs_QERaE50oiEct5Z3rt94FRLul8LAcGfE9kxQ/viewform?embedded=true" width="800" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  </div>
+
+
+
 <audio id="push-chips"><source src="audio/allinpushchips.wav" type="audio/wav"></audio>
   <audio id="alert"><source src="audio/alert.wav" type="audio/wav"></audio>
     <audio id="flip-card"><source src="audio/fast-flip.mp3" type="audio/mpeg"></audio>

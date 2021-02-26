@@ -25,8 +25,17 @@ function returnToMainScreen(button) {
   player.sum = 0;
   player.name = "";
   player.balance = 0;
+  player.initialBalance = 0;
+  player.wins = 0;
+  player.losses = 0;
+  player.ties = 0;
   pc.hand = [];
   pc.sum = 0;
+
+  // Updates wins, losses and ties counts
+  document.getElementById("win-count").innerHTML = player.wins;
+  document.getElementById("loss-count").innerHTML = player.losses;
+  document.getElementById("tie-count").innerHTML = player.ties;
 
   // Leaves only 2 card images per player
   cleanUpCards(player);
@@ -37,6 +46,30 @@ function returnToMainScreen(button) {
 
   // Shows initial screen
   document.querySelector("main").className = "";
+  document.querySelector(".initial-form").className = "initial-form";
+  document.querySelector(".start-game").className = "start-game start-btn";
+  document.querySelector(".steroids-game").className =
+    "steroids-game start-btn";
+  document.querySelector(".restart").className = "restart start-btn hide";
+  document.getElementById("additional-purchase").className = "hide";
+}
+
+function buyMoreChips(button) {
+  // Hides the toast message again
+  const toast = document.getElementById(button);
+  toast.className = "toast-message";
+
+  // Leaves only 2 card images per player
+  cleanUpCards(player);
+  cleanUpCards(pc);
+
+  // Hides game content
+  document.getElementById("game-content").className = "hide";
+
+  // Shows form so user purchases more chips
+  document.querySelector("main").className = "";
+  document.getElementById("additional-purchase").className = "display";
+  document.querySelector(".restart.start-btn").className = "restart start-btn";
 }
 
 function dealCardsAgain(button) {
@@ -73,6 +106,9 @@ function dealCardsAgain(button) {
 
 function startGame() {
   document.querySelector("main").className = "hide";
+  document.querySelector(".initial-form").className = "initial-form hide";
+  document.querySelector(".start-game").className = "start-game hide";
+  document.querySelector(".steroids-game").className = "steroids-game hide";
 
   // Unblocking game state
   gameBlocked = false;
@@ -113,6 +149,18 @@ function startGame() {
   updateSum(player);
   assignInitialCards(pc);
   updateSum(pc);
+  displayActionButtons();
+}
+
+function restartGame() {
+  document.querySelector("main").className = "hide";
+
+  // Unblocking game state
+  gameBlocked = false;
+
+  // Displaying Game Content
+  document.getElementById("game-content").className = "game-display";
+
   displayActionButtons();
 }
 
@@ -203,7 +251,7 @@ function updateSum(player) {
 function updateBalance(output) {
   if (output === "win") {
     player.balance += player.bet;
-  } else {
+  } else if (output === "loss") {
     player.balance -= player.bet;
   }
   document
@@ -371,7 +419,7 @@ function cleanUpCards(player) {
 }
 
 function callBlackjackAnimation() {
-  console.log("Blackjack animation was called!");
+  console.log("Blackjack animation has been called!");
   document.getElementById("blackjack").className =
     "transitions animate__animated animate__heartBeat";
   setTimeout(function () {
@@ -380,7 +428,7 @@ function callBlackjackAnimation() {
 }
 
 function lostMoney() {
-  console.log("Money loss animation was called!");
+  console.log("Money loss animation has been called!");
   document.getElementById("money-loss").className =
     "transitions animate__animated animate__fadeOutDown";
   setTimeout(function () {
@@ -389,7 +437,7 @@ function lostMoney() {
 }
 
 function gainedMoney() {
-  console.log("Money gain animation was called!");
+  console.log("Money gain animation has been called!");
   document.getElementById("money-gain").className =
     "transitions animate__animated animate__fadeOutUp";
   setTimeout(function () {

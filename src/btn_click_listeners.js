@@ -15,6 +15,28 @@ document.querySelector("button.start-game").onclick = () => {
   }
 };
 
+document.querySelector("button.restart").onclick = () => {
+  const newChips = parseInt(document.getElementById("additionalBalance").value);
+  console.log(`Additional balance: ${newChips}`);
+  player.initialBalance += newChips;
+  console.log(`Player new initial Balance: ${player.initialBalance}`);
+  console.log(`Player previous Balance: ${player.balance}`);
+  player.balance += newChips;
+  console.log(`Player new Balance: ${player.balance}`);
+  restartGame();
+  updateBalance();
+};
+
+document.getElementById("feedback").onclick = () => {
+  document.getElementById("feedback-form").className = "display";
+};
+
+document
+  .getElementById("feedback-form")
+  .querySelector("div a").onclick = () => {
+  document.getElementById("feedback-form").className = "hide";
+};
+
 document.getElementById("hit").onclick = () => {
   if (!gameBlocked) {
     document.getElementById("flip-card").play();
@@ -99,7 +121,8 @@ document.getElementById("tie").querySelector(".main-screen").onclick = () => {
 document
   .getElementById("game-over")
   .querySelector(".main-screen").onclick = () => {
-  returnToMainScreen("game-over");
+  console.log(player.hand);
+  buyMoreChips("game-over");
 };
 
 document
@@ -115,7 +138,8 @@ document
 document
   .getElementById("block-double-bet")
   .querySelector(".main-screen").onclick = () => {
-  returnToMainScreen("block-double-bet");
+  console.log(player.hand);
+  buyMoreChips("block-double-bet");
 };
 
 document
@@ -128,5 +152,5 @@ document
 document
   .getElementById("form-misfilled")
   .querySelector(".main-screen").onclick = () => {
-  returnToMainScreen("form-misfilled");
+  document.getElementById("form-misfilled").className = "toast-message";
 };
