@@ -110,6 +110,7 @@ h3 span {
   font-weight: bold;
   color: gray;
   text-decoration: none;
+  padding: 10px;
 }
 
 .initial-form {
