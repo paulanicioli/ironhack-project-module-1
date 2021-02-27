@@ -1,4 +1,12 @@
+document
+  .querySelector(".initial-form")
+  .addEventListener("submit", attemptStart);
+
 document.querySelector("button.start-game").onclick = () => {
+  attemptStart();
+};
+
+function attemptStart() {
   if (
     document.getElementById("initialBalance").value == "" ||
     document.getElementById("initialBet").value == "" ||
@@ -13,7 +21,7 @@ document.querySelector("button.start-game").onclick = () => {
     startGame();
     document.querySelector(".nav-bar ul li").className = "display";
   }
-};
+}
 
 document.querySelector("button.restart").onclick = () => {
   const newChips = parseInt(document.getElementById("additionalBalance").value);

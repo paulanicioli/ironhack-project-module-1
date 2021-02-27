@@ -53,11 +53,11 @@ h3 span {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10%;
+  padding: 0 10vw;
 }
 
 .nav-bar ul {
-  width: 40%;
+  width: 40vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,11 +85,11 @@ h3 span {
 
 #feedback-form.display {
   position: absolute;
-  top: 50px;
+  top: 7vh;
   left: 0;
-  margin: 0 15%;
-  width: 70%;
-  height: 100%;
+  margin: 0 10vw;
+  width: 80vw;
+  height: 95vh;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -103,6 +103,11 @@ h3 span {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+}
+
+#feedback-form iframe {
+  width: 80vw;
+  height: 100vh;
 }
 
 #feedback-form.display > div a {
@@ -457,12 +462,12 @@ input {
 }
 
 #game-over {
-  width: 550px;
-  height: 250px;
+  width: 35vw;
+  height: 30vh;
   color: rgb(102, 51, 153);
   border-left: 5px solid rgb(102, 51, 153);
-  left: 25%;
-  bottom: 30%;
+  left: 32vw;
+  bottom: 35vh;
 }
 
 #game-over button {
@@ -569,7 +574,18 @@ input {
   }
 
   .nav-bar ul {
-    width: 70%;
+    width: 50vw;
+    padding: 5vw;
+  }
+
+  .game-logo {
+    width: 20vw;
+    height: auto;
+  }
+
+  .welcome-image {
+    width: 80vw;
+    height: auto;
   }
 
   .toast-message {
@@ -584,6 +600,11 @@ input {
 
   .toast-message button {
     font-size: 0.8rem;
+  }
+
+  #game-over {
+    left: 20vw;
+    bottom: 35vh;
   }
 
   #block-double-bet {
@@ -620,15 +641,15 @@ input {
   #pc {
     height: 40vh;
     width: 80vw;
-    padding: 20px;
-    margin: 2vh 10vw;
+    padding: 3vw;
+    margin: 2vh 7vw;
   }
 
   #player {
     height: 40vh;
     width: 80vw;
-    padding: 20px;
-    margin: 2vh 10vw;
+    padding: 3vw;
+    margin: 2vh 7vw;
   }
 
   #next-move {
