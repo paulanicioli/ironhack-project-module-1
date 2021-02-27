@@ -170,6 +170,7 @@ input {
 }
 
 .steroids-game {
+  visibility: hidden;
   background-color: rebeccapurple;
 }
 
@@ -482,8 +483,8 @@ input {
   height: 30vh;
   color: rgb(102, 51, 153);
   border-left: 5px solid rgb(102, 51, 153);
-  left: 30%;
-  bottom: 30%;
+  left: 32vw;
+  bottom: 35vh;
 }
 
 #block-double-bet button {
@@ -503,8 +504,8 @@ input {
   height: 35vh;
   color: rgb(102, 51, 153);
   border-left: 5px solid rgb(102, 51, 153);
-  left: 30%;
-  bottom: 30%;
+  left: 32vw;
+  bottom: 35vh;
 }
 
 #form-misfilled button {
@@ -548,7 +549,7 @@ input {
 
 /* Responsive design */
 
-@media (min-width: 746px) and (max-width: 1054px) {
+@media (min-width: 900px) and (max-width: 1054px) {
   * {
     font-size: 15px;
   }
@@ -560,41 +561,9 @@ input {
   .toast-message button {
     font-size: 0.8rem;
   }
-
-  .card {
-    width: 150px;
-  }
-
-  .card-container {
-    width: 80%;
-    max-width: 350px;
-  }
-
-  .card-container div {
-    display: table-cell;
-    width: 30px;
-  }
-
-  #pc {
-    height: 350px;
-    padding: 20px;
-    margin: 30px 10px;
-  }
-
-  #player {
-    height: 350px;
-    padding: 20px;
-    margin: 30px 10px;
-  }
-
-  #next-move {
-    height: 350px;
-    padding: 10px;
-    margin: 30px 0;
-  }
 }
 
-@media (max-width: 746px) {
+@media (max-width: 900px) {
   * {
     font-size: 14px;
   }
@@ -603,18 +572,10 @@ input {
     width: 70%;
   }
 
-  .game-logo {
-    height: 30px;
-  }
-
-  .welcome-image {
-    height: 100px;
-  }
-
   .toast-message {
-    min-width: 250px;
-    height: 150px;
-    left: 15%;
+    min-width: 60vw;
+    height: 25vh;
+    left: 20vw;
   }
 
   .toast-message h5 {
@@ -625,6 +586,16 @@ input {
     font-size: 0.8rem;
   }
 
+  #block-double-bet {
+    left: 20vw;
+    bottom: 35vh;
+  }
+
+  #form-misfilled {
+    left: 20vw;
+    bottom: 35vh;
+  }
+
   .game-display {
     display: flex;
     flex-direction: column;
@@ -632,35 +603,39 @@ input {
   }
 
   .card {
-    width: 100px;
+    height: 25vh;
+    width: auto;
   }
 
   .card-container {
     width: 80%;
-    max-width: 250px;
+    max-width: 50vw;
   }
 
   .card-container div {
     display: table-cell;
-    width: 30px;
+    width: 4vw;
   }
 
   #pc {
-    height: 300px;
+    height: 40vh;
+    width: 80vw;
     padding: 20px;
-    margin: 10px;
+    margin: 2vh 10vw;
   }
 
   #player {
-    height: 300px;
+    height: 40vh;
+    width: 80vw;
     padding: 20px;
-    margin: 10px;
+    margin: 2vh 10vw;
   }
 
   #next-move {
-    height: 90px;
-    padding: 10px;
-    margin: 0;
+    height: 6vh;
+    width: 80vw;
+    padding: 0;
+    margin: 0 10vw;
     flex-direction: row;
   }
 }
