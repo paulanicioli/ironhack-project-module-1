@@ -32,7 +32,7 @@ function returnToMainScreen(button) {
   pc.hand = [];
   pc.sum = 0;
 
-  // Updates wins, losses and ties counts
+  // Updates wins, losses and ties counts and balance
   document.getElementById("win-count").innerHTML = player.wins;
   document.getElementById("loss-count").innerHTML = player.losses;
   document.getElementById("tie-count").innerHTML = player.ties;
@@ -130,6 +130,11 @@ function startGame() {
     .querySelectorAll("h2 span")[1].innerHTML = printDollarValue(
     player.balance
   );
+
+  document.getElementById("net-balance").innerHTML = printDollarValue(
+    player.balance - player.initialBalance
+  );
+
   document
     .getElementById("player")
     .querySelectorAll("h3 span")[0].innerHTML = printDollarValue(player.bet);
@@ -157,6 +162,9 @@ function restartGame() {
 
   // Unblocking game state
   gameBlocked = false;
+
+  // Deal new cards
+  dealCardsAgain("game-over");
 
   // Displaying Game Content
   document.getElementById("game-content").className = "game-display";
