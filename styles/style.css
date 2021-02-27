@@ -257,7 +257,7 @@ input {
 
 #next-move div {
   width: 80px;
-  margin: 10px 0;
+  margin: 0;
 }
 
 #next-move div h6 {
@@ -589,9 +589,10 @@ input {
   }
 
   .toast-message {
-    min-width: 60vw;
+    min-width: 70vw;
+    max-width: 80vw;
     height: 25vh;
-    left: 20vw;
+    left: 15vw;
   }
 
   .toast-message h5 {
@@ -603,18 +604,24 @@ input {
   }
 
   #game-over {
-    left: 20vw;
-    bottom: 35vh;
+    left: 15vw;
+    width: 70vw;
+    bottom: 30vh;
+    height: 40vh;
   }
 
   #block-double-bet {
-    left: 20vw;
-    bottom: 35vh;
+    left: 15vw;
+    width: 70vw;
+    bottom: 30vh;
+    height: 40vh;
   }
 
   #form-misfilled {
-    left: 20vw;
-    bottom: 35vh;
+    left: 15vw;
+    width: 70vw;
+    bottom: 30vh;
+    height: 40vh;
   }
 
   .game-display {
@@ -658,5 +665,21 @@ input {
     padding: 0;
     margin: 0 10vw;
     flex-direction: row;
+  }
+
+  .action-button {
+    font-size: 0.8rem;
+    width: 70px;
+    padding: 5px;
+    margin: 0 5px;
+  }
+
+  input {
+    width: 80vw;
+    margin: 10px 0;
+  }
+
+  .start-btn {
+    max-width: 80vw;
   }
 }
