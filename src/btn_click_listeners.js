@@ -19,6 +19,7 @@ function attemptStart() {
     document.getElementById("alert").play();
   } else {
     startGame();
+    gtag_report_conversion();
     document.querySelector(".nav-bar ul li").className = "display";
   }
 }
