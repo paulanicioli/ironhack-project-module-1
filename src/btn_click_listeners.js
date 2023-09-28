@@ -20,6 +20,7 @@ function attemptStart() {
   } else {
     startGame();
     gtag_report_conversion();
+    console.log("successful start!")
     document.querySelector(".nav-bar ul li").className = "display";
   }
 }
